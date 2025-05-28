@@ -4,7 +4,6 @@ import com.api.urlshortener.error.BadRequestException;
 import com.api.urlshortener.error.URLNotFoundException;
 import com.api.urlshortener.store.UrlStore;
 import com.api.urlshortener.util.AppConstant;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -52,7 +51,7 @@ public class UrlShortenerServiceTest {
 
     @Test
     void generateShortUrl_InvalidUrl() {
-        //Should throw BadRequestException for invalid URL"
+        //Should throw BadRequestException for invalid URL
         String invalidUrl = "httph://domain.com";
 
         Exception exception = assertThrows(BadRequestException.class, () -> {
@@ -64,8 +63,8 @@ public class UrlShortenerServiceTest {
 
     @Test
     void fetchOriginalUrl_Success() {
-//        Should fetch original URL from short URL"
-        String shortCode = "abc123";
+//        Should fetch original URL from short URL
+        String shortCode = "abc1234";
         String shortUrl = AppConstant.SHORT_DOMAIN + shortCode;
         String originalUrl = "https://domain.com";
 
@@ -78,7 +77,7 @@ public class UrlShortenerServiceTest {
     @Test
     void fetchOriginalUrl_NotFound() {
 //        Should throw URLNotFoundException if original URL not found
-        String shortCode = "abc123";
+        String shortCode = "abc1234";
         String shortUrl = AppConstant.SHORT_DOMAIN + shortCode;
 
         Mockito.when(urlStore.fetchOriginalUrl(shortCode)).thenReturn(null);
@@ -93,7 +92,7 @@ public class UrlShortenerServiceTest {
     @Test
     void fetchUrlInfo_Success() {
 //        Should fetch URL info map for existing short URL
-        String shortCode = "abc123";
+        String shortCode = "abc1234";
         String shortUrl = AppConstant.SHORT_DOMAIN + shortCode;
         String originalUrl = "https://domain.com";
 
@@ -109,7 +108,7 @@ public class UrlShortenerServiceTest {
     @Test
     void fetchUrlInfo_Failure() {
 //        Should return URLNotFoundException if the short URL does not exist
-        String shortCode = "abc123nonexistent";
+        String shortCode = "abc1234";
         String shortUrl = AppConstant.SHORT_DOMAIN + shortCode;
 
         Mockito.when(urlStore.fetchOriginalUrl(shortCode)).thenReturn(null);
