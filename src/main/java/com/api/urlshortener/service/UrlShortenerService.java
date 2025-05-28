@@ -24,7 +24,7 @@ public class UrlShortenerService {
     private UrlStore urlStore;
 
     public String generateShortUrl(String originalUrl) throws Exception {
-        if (!UrlValidatorUtil.isValidUrl(originalUrl)) {
+        if (!UrlValidatorUtil.isValidOriginalUrl(originalUrl)) {
             log.error("Provided url {} is invalid", originalUrl);
             throw new BadRequestException(String.format("Provided url %s is invalid", originalUrl));
         }
@@ -40,7 +40,7 @@ public class UrlShortenerService {
     }
 
     public String fetchOriginalUrl(String shortUrl) {
-
+        validateShortUrl(shortUrl);
         String shortCode = extractShortCodeFromUrl(shortUrl);
         String originalUrl = urlStore.fetchOriginalUrl(shortCode);
         if (!StringUtils.hasText(originalUrl)) {
@@ -52,6 +52,7 @@ public class UrlShortenerService {
     }
 
     public ConcurrentHashMap<String, String> fetchUrlInfo(String shortUrl) {
+        validateShortUrl(shortUrl);
         String originalUrl = fetchOriginalUrl(shortUrl);
         if (originalUrl != null) {
             String shortCode = extractShortCodeFromUrl(shortUrl);
@@ -78,6 +79,12 @@ public class UrlShortenerService {
             return urlTokens[urlTokens.length - 1];
         } catch (URISyntaxException e) {
             throw new BadRequestException("Invalid Short URL format");
+        }
+    }
+
+    protected void validateShortUrl(String shortUrl) {
+        if (!UrlValidatorUtil.isValidShortUrl(shortUrl)) {
+            throw new BadRequestException(String.format("Provided short url %s is invalid", shortUrl));
         }
     }
 }
