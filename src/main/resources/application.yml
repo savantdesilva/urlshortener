@@ -1,0 +1,6 @@
+spring:
+  application:
+      name: urlshortener
+
+server:
+  port: 8082
