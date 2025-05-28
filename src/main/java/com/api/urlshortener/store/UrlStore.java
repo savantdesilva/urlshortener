@@ -13,7 +13,7 @@ public class UrlStore {
 
     private final Map<String, String> shortCodeUrlMap = new ConcurrentHashMap<>();
 
-    public boolean storeNewUrl(String shortCode, String url) throws Exception {
+    public boolean storeNewUrl(String shortCode, String url) {
         if (shortCodeUrlMap.isEmpty()
                 || (!shortCodeUrlMap.containsKey(shortCode) && !shortCodeUrlMap.containsValue(url))) {
             shortCodeUrlMap.put(shortCode, url);

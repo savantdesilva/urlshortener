@@ -13,7 +13,6 @@ import org.springframework.util.StringUtils;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.SecureRandom;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,7 +24,7 @@ public class UrlShortenerService {
     private UrlStore urlStore;
 
     public String generateShortUrl(String originalUrl) throws Exception {
-        if (UrlValidatorUtil.isValidUrl(originalUrl)) {
+        if (!UrlValidatorUtil.isValidUrl(originalUrl)) {
             log.error("Provided url {} is invalid", originalUrl);
             throw new BadRequestException(String.format("Provided url %s is invalid", originalUrl));
         }
